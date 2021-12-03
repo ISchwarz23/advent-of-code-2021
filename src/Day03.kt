@@ -28,34 +28,36 @@ fun main() {
             return i.count { it.toCharArray()[index] == c }
         }
 
-        fun calculateOxygenGeneratorRating(): Int {
-            var inputCopy: List<String> = input.toMutableList()
+        fun filterUntilOnlyOneRemaining(filter: (i: List<String>, index: Int) -> List<String>) : Int {
             var index = 0
-            while (inputCopy.size > 1) {
-                val countOf1 = count(inputCopy, '1', index)
-                inputCopy = if (countOf1 >= inputCopy.size - countOf1) {
-                    inputCopy.filter { it.toCharArray()[index] == '1' }
-                } else {
-                    inputCopy.filter { it.toCharArray()[index] == '0' }
-                }
+            var inputCp: List<String> = input.toMutableList()
+            while (inputCp.size > 1) {
+                inputCp = filter(inputCp, index)
                 index++
             }
-            return Integer.parseInt(inputCopy[0], 2)
+            return Integer.parseInt(inputCp[0], 2)
+        }
+
+        fun calculateOxygenGeneratorRating(): Int {
+            return filterUntilOnlyOneRemaining { remainingInput, index ->
+                val countOf1 = count(remainingInput, '1', index)
+                if (countOf1 >= remainingInput.size - countOf1) {
+                    remainingInput.filter { it.toCharArray()[index] == '1' }
+                } else {
+                    remainingInput.filter { it.toCharArray()[index] == '0' }
+                }
+            }
         }
 
         fun calculateCO2ScrubberRating(): Int {
-            var inputCopy: List<String> = input.toMutableList()
-            var index = 0
-            while (inputCopy.size > 1) {
-                val countOf0 = count(inputCopy, '0', index)
-                inputCopy = if (countOf0 <= inputCopy.size - countOf0) {
-                    inputCopy.filter { it.toCharArray()[index] == '0' }
+            return filterUntilOnlyOneRemaining { remainingInput, index ->
+                val countOf0 = count(remainingInput, '0', index)
+                if (countOf0 <= remainingInput.size - countOf0) {
+                    remainingInput.filter { it.toCharArray()[index] == '0' }
                 } else {
-                    inputCopy.filter { it.toCharArray()[index] == '1' }
+                    remainingInput.filter { it.toCharArray()[index] == '1' }
                 }
-                index++
             }
-            return Integer.parseInt(inputCopy[0], 2)
         }
 
         return calculateOxygenGeneratorRating() * calculateCO2ScrubberRating()
@@ -67,8 +69,8 @@ fun main() {
     check(part2(testInput) == 230)
 
     val input = readInput("Day03")
-    println(part1(input))  // 3901196
-    println(part2(input))  // 4412188
+    println(part1(input))
+    println(part2(input))
 }
 
 private fun Int.pow(exponent: Int): Int {
