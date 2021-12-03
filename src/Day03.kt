@@ -1,3 +1,5 @@
+import kotlin.math.pow
+
 fun main() {
     fun part1(input: List<String>): Int {
         if (input.isEmpty()) return 0
@@ -10,19 +12,14 @@ fun main() {
         }
 
         val majority = input.size / 2
-        var gammaRate = ""
-        var epsilonRate = ""
-        counters.forEach {
-            if (it > majority) {
-                gammaRate += "1"
-                epsilonRate += "0"
-            } else {
-                gammaRate += "0"
-                epsilonRate += "1"
-            }
+        val maxExponent = input[0].length - 1
+        var gammaRate = 0
+        var epsilonRate = 0
+        counters.forEachIndexed { index, i ->
+            val value = 2.pow(maxExponent - index)
+            if (i > majority) gammaRate += value else epsilonRate += value
         }
-        return Integer.parseInt(gammaRate, 2) *
-                Integer.parseInt(epsilonRate, 2)
+        return gammaRate * epsilonRate
     }
 
     fun part2(input: List<String>): Int {
@@ -70,6 +67,10 @@ fun main() {
     check(part2(testInput) == 230)
 
     val input = readInput("Day03")
-    println(part1(input))
-    println(part2(input))
+    println(part1(input))  // 3901196
+    println(part2(input))  // 4412188
+}
+
+private fun Int.pow(exponent: Int): Int {
+    return this.toDouble().pow(exponent).toInt()
 }
