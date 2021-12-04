@@ -18,7 +18,6 @@ fun main() {
     }
 
     fun part1(input: List<String>): Int {
-        if(input.isEmpty()) return 0
 
         // read input
         val calls = input[0].split(",").map { it.toInt() }
@@ -34,19 +33,36 @@ fun main() {
             finishedBoard = boards.find { it.isFinished() }
         } while(finishedBoard == null)
 
-        boards.forEach { println(it) }
-
         return finishedBoard.getUnmarkedFieldValues().sum() * lastCall
     }
 
     fun part2(input: List<String>): Int {
-        return 0
+
+        // read input
+        val calls = input[0].split(",").map { it.toInt() }
+        var boards: List<Board> = parseBoards(input)
+
+        // play the game
+        var index = -1
+        var lastCall: Int
+        do {
+            lastCall = calls[++index]
+            boards.forEach{ it.mark(lastCall) }
+            boards = boards.filter { !it.isFinished() }
+        } while(boards.size > 1)
+
+        val lastFinishedBoard = boards[0]
+        while(lastFinishedBoard.isFinished().not()) {
+            lastCall = calls[++index]
+            lastFinishedBoard.mark(lastCall)
+        }
+        return lastFinishedBoard.getUnmarkedFieldValues().sum() * lastCall
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day04_test")
     check(part1(testInput) == 4512)
-    check(part2(testInput) == 0)
+    check(part2(testInput) == 1924)
 
     val input = readInput("Day04")
     println(part1(input))
