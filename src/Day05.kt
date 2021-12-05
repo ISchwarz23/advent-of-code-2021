@@ -17,13 +17,22 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return 0
+        val lines = input.map { it.split(" -> ") }
+            .map {
+                val startCoords = it[0].split(",").map { i -> i.toInt() }
+                val endCoords = it[1].split(",").map { i -> i.toInt() }
+                Line(Coords(startCoords[0], startCoords[1]), Coords(endCoords[0], endCoords[1]))
+            }
+
+        val diagram = Diagram(1000)
+        lines.forEach { diagram.add(it) }
+        return diagram.numberOfOverlappingFields
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day05_test")
     check(part1(testInput) == 5)
-    check(part2(testInput) == 0)
+    check(part2(testInput) == 12)
 
     val input = readInput("Day05")
     println(part1(input))
