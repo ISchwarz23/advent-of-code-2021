@@ -1,6 +1,9 @@
+package com.schwarz.aoc
+
 import kotlin.math.pow
 
-fun main() {
+object Day03 {
+
     fun part1(input: List<String>): Int {
         if (input.isEmpty()) return 0
 
@@ -28,7 +31,7 @@ fun main() {
             return i.count { it.toCharArray()[index] == c }
         }
 
-        fun filterUntilOnlyOneRemaining(filter: (i: List<String>, index: Int) -> List<String>) : Int {
+        fun filterUntilOnlyOneRemaining(filter: (i: List<String>, index: Int) -> List<String>): Int {
             var index = 0
             var inputCp: List<String> = input.toMutableList()
             while (inputCp.size > 1) {
@@ -63,16 +66,8 @@ fun main() {
         return calculateOxygenGeneratorRating() * calculateCO2ScrubberRating()
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day03_test")
-    check(part1(testInput) == 198)
-    check(part2(testInput) == 230)
+    private infix fun Int.pow(exponent: Int): Int {
+        return this.toDouble().pow(exponent).toInt()
+    }
 
-    val input = readInput("Day03")
-    println(part1(input))
-    println(part2(input))
-}
-
-private infix fun Int.pow(exponent: Int): Int {
-    return this.toDouble().pow(exponent).toInt()
 }

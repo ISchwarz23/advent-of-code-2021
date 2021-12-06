@@ -1,4 +1,6 @@
-fun main() {
+package com.schwarz.aoc
+
+object Day06 {
 
     fun part1(input: List<Int>): Int {
         var fishAges: MutableList<Int> = input.toMutableList()
@@ -24,12 +26,4 @@ fun main() {
         return fishAges.sum()
     }
 
-    // test if implementation meets criteria from the description, like:
-    val testInput = readOneLineInputAsInts("Day06_test")
-    check(part1(testInput) == 5934)
-    check(part2(testInput) == 26984457539)
-
-    val input = readOneLineInputAsInts("Day06")
-    println(part1(input))
-    println(part2(input))
 }
