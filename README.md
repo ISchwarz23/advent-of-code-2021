@@ -1,3 +1,6 @@
+![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=5&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=10&color=yellow&style=flat-square)
+  
 # Advent of Code (2021)
 
 Welcome to the Advent of Code[^aoc] Kotlin project created by [ischwarz23][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
