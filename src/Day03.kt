@@ -16,7 +16,7 @@ fun main() {
         var gammaRate = 0
         var epsilonRate = 0
         counters.forEachIndexed { index, i ->
-            val value = 2.pow(maxExponent - index)
+            val value = 2 pow (maxExponent - index)
             if (i > majority) gammaRate += value else epsilonRate += value
         }
         return gammaRate * epsilonRate
@@ -73,6 +73,6 @@ fun main() {
     println(part2(input))
 }
 
-private fun Int.pow(exponent: Int): Int {
+private infix fun Int.pow(exponent: Int): Int {
     return this.toDouble().pow(exponent).toInt()
 }

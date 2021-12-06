@@ -2,41 +2,35 @@ import kotlin.math.absoluteValue
 
 fun main() {
 
-    fun part1(input: List<String>): Int {
-        val lines = input.map { it.split(" -> ") }
-            .map {
-                val startCoords = it[0].split(",").map { i -> i.toInt() }
-                val endCoords = it[1].split(",").map { i -> i.toInt() }
-                Line(Coords(startCoords[0], startCoords[1]), Coords(endCoords[0], endCoords[1]))
-            }
-            .filter { it.isNotDiagonal }
-
+    fun part1(input: List<Line>): Int {
         val diagram = Diagram(1000)
-        lines.forEach { diagram.add(it) }
+        input.filter { it.isNotDiagonal }.forEach { diagram.add(it) }
         return diagram.numberOfOverlappingFields
     }
 
-    fun part2(input: List<String>): Int {
-        val lines = input.map { it.split(" -> ") }
-            .map {
-                val startCoords = it[0].split(",").map { i -> i.toInt() }
-                val endCoords = it[1].split(",").map { i -> i.toInt() }
-                Line(Coords(startCoords[0], startCoords[1]), Coords(endCoords[0], endCoords[1]))
-            }
-
+    fun part2(input: List<Line>): Int {
         val diagram = Diagram(1000)
-        lines.forEach { diagram.add(it) }
+        input.forEach { diagram.add(it) }
         return diagram.numberOfOverlappingFields
     }
 
     // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day05_test")
+    val testInput = readInputAsLines("Day05_test")
     check(part1(testInput) == 5)
     check(part2(testInput) == 12)
 
-    val input = readInput("Day05")
+    val input = readInputAsLines("Day05")
     println(part1(input))
     println(part2(input))
+}
+
+private fun readInputAsLines(name: String): List<Line> {
+    return readInput(name).map { it.split(" -> ") }
+        .map {
+            val startCoords = it[0].split(",").map { i -> i.toInt() }
+            val endCoords = it[1].split(",").map { i -> i.toInt() }
+            Line(Coords(startCoords[0], startCoords[1]), Coords(endCoords[0], endCoords[1]))
+        }
 }
 
 class Diagram(private val size: Int = 10) {
@@ -81,8 +75,8 @@ class Diagram(private val size: Int = 10) {
 }
 
 data class Line(val start: Coords, val end: Coords) {
-    val isHorizontal: Boolean = start.y == end.y
-    val isVertical: Boolean = start.x == end.x
+    private val isHorizontal: Boolean = start.y == end.y
+    private val isVertical: Boolean = start.x == end.x
     val isNotDiagonal: Boolean = isHorizontal || isVertical
 }
 
