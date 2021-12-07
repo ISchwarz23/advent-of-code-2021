@@ -5,23 +5,27 @@ import kotlin.math.absoluteValue
 object Day05 {
 
     fun part1(input: List<Line>): Int {
-        val diagram = Diagram(1000)
+        val diagram = Diagram()
         input.filter { it.isNotDiagonal }.forEach { diagram.add(it) }
         return diagram.numberOfOverlappingFields
     }
 
     fun part2(input: List<Line>): Int {
-        val diagram = Diagram(1000)
+        val diagram = Diagram()
         input.forEach { diagram.add(it) }
         return diagram.numberOfOverlappingFields
     }
 }
 
-private class Diagram(private val size: Int = 10) {
-    private val fields = MutableList(size * size) { 0 }
+private class Diagram {
+    private val markedFields = mutableMapOf<Coords, Int>()
+
+    operator fun get(x: Int, y: Int): Int {
+        return markedFields.getOrDefault(Coords(x, y), 0)
+    }
 
     val numberOfOverlappingFields: Int
-        get() = fields.filter { it > 1 }.size
+        get() = markedFields.filter { it.value > 1 }.size
 
     fun add(line: Line) {
         val deltaX = line.end.x - line.start.x
@@ -38,14 +42,18 @@ private class Diagram(private val size: Int = 10) {
     }
 
     private fun markField(x: Int, y: Int) {
-        fields[x + size * y] += 1
+        markField(Coords(x, y))
     }
 
-    override fun toString(): String {
+    private fun markField(coords: Coords) {
+        markedFields[coords] = markedFields.getOrDefault(coords, 0) + 1
+    }
+
+    fun toString(size: Int): String {
         var s = ""
         for (y in 0 until size) {
             for (x in 0 until size) {
-                val value = fields[x + size * y]
+                val value = markedFields.getOrDefault(Coords(x, y), 0)
                 if (value == 0) {
                     s += "."
                 } else {
