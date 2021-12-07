@@ -4,15 +4,17 @@ import kotlin.math.absoluteValue
 
 object Day05 {
 
-    fun part1(input: List<Line>): Int {
+    fun part1(input: List<Line>, debug: Boolean = false): Int {
         val diagram = Diagram()
         input.filter { it.isNotDiagonal }.forEach { diagram.add(it) }
+        if(debug) println(diagram)
         return diagram.numberOfOverlappingFields
     }
 
-    fun part2(input: List<Line>): Int {
+    fun part2(input: List<Line>, debug: Boolean = false): Int {
         val diagram = Diagram()
         input.forEach { diagram.add(it) }
+        if(debug) println(diagram)
         return diagram.numberOfOverlappingFields
     }
 }
@@ -47,6 +49,10 @@ private class Diagram {
 
     private fun markField(coords: Coords) {
         markedFields[coords] = markedFields.getOrDefault(coords, 0) + 1
+    }
+
+    override fun toString(): String {
+        return toString((markedFields.keys.flatMap { listOf(it.x, it.y) }.maxOrNull() ?: 9) + 1)
     }
 
     fun toString(size: Int): String {

@@ -1,5 +1,6 @@
 package com.schwarz.aoc
 
+import com.schwarz.aoc.utils.calcPartialSum
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
@@ -16,14 +17,10 @@ object Day07 {
         // check around average
         var minFuelCosts = Integer.MAX_VALUE
         for(avg in average-1..average+1) {
-            val fuelCosts = input.sumOf { getPartialSum((it - avg).absoluteValue) }
+            val fuelCosts = input.sumOf { (it - avg).absoluteValue.calcPartialSum() }
             if(fuelCosts < minFuelCosts) minFuelCosts = fuelCosts
         }
         return minFuelCosts
-    }
-
-    private fun getPartialSum(n: Int): Int {
-        return (n * (n + 1)) / 2
     }
 
 }

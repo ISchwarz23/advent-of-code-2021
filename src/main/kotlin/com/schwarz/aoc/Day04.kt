@@ -1,12 +1,12 @@
 package com.schwarz.aoc
 
-import ANSI_RED_BACKGROUND
-import ANSI_RESET
+import com.schwarz.aoc.utils.ANSI_RED_BACKGROUND
+import com.schwarz.aoc.utils.ANSI_RESET
 import java.lang.IllegalArgumentException
 
 object Day04 {
 
-    fun part1(input: List<String>): Int {
+    fun part1(input: List<String>, debug: Boolean = false): Int {
         // read input
         val calls = input[0].split(",").map { it.toInt() }
         val boards = parseBoards(input)
@@ -21,10 +21,11 @@ object Day04 {
             finishedBoard = boards.find { it.isFinished() }
         } while(finishedBoard == null)
 
+        if(debug) println(finishedBoard)
         return finishedBoard.getUnmarkedFieldValues().sum() * lastCall
     }
 
-    fun part2(input: List<String>): Int {
+    fun part2(input: List<String>, debug: Boolean = false): Int {
         // read input
         val calls = input[0].split(",").map { it.toInt() }
         var boards: List<Board> = parseBoards(input)
@@ -43,6 +44,8 @@ object Day04 {
             lastCall = calls[++index]
             lastFinishedBoard.mark(lastCall)
         }
+
+        if(debug) println(lastFinishedBoard)
         return lastFinishedBoard.getUnmarkedFieldValues().sum() * lastCall
     }
 

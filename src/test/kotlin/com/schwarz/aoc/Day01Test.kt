@@ -2,7 +2,7 @@ package com.schwarz.aoc
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
-import readInputAsInts
+import com.schwarz.aoc.utils.readInputAsInts
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
