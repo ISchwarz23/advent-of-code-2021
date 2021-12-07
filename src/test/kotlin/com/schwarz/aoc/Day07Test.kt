@@ -2,7 +2,7 @@ package com.schwarz.aoc
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
-import readInput
+import readOneLineInputAsInts
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,8 +11,8 @@ import kotlin.test.assertEquals
 )
 internal class Day07Test {
 
-    private val testInput = readInput("Day07_test")
-    private val input = readInput("Day07")
+    private val testInput = readOneLineInputAsInts("Day07_test")
+    private val input = readOneLineInputAsInts("Day07")
 
     @Test
     internal fun testPart1() {
@@ -20,7 +20,7 @@ internal class Day07Test {
         val result = Day07.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(37, result)
 
         // get solution
         println("Result of Day 07 - Part 1: ${Day07.part1(input)}")
@@ -32,7 +32,7 @@ internal class Day07Test {
         val result = Day07.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(168, result)
 
         // get solution
         println("Result of Day 07 - Part 2: ${Day07.part2(input)}")
