@@ -1,5 +1,5 @@
-![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=7&color=blue&style=flat-square)
-![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=14&color=yellow&style=flat-square)
+![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=8&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=16&color=yellow&style=flat-square)
   
 # Advent of Code (2021)
 In this repository, I'm about to provide solutions for the Advent of Code[^aoc] puzzles using [Kotlin][kotlin] language.
@@ -25,7 +25,7 @@ I tried to log my results and thoughts for each puzzle after solving it.
 | 5   | [Hydrothermal Venture][5]    | ~ 20 min   | ⭐⭐    | Implemented an object-oriented solution again. Already guessed the part 2 of the puzzle, so diagonals were supported right from the beginning.                                             |
 | 6   | [Lanternfish][6]             | ~ 30 min   | ⭐⭐    | Part 1 was straight forward (5 min). Performance was so bad that I had to completely redo it for part 2. But now I'm pretty proud on the solution, as it is simple and fast.               |
 | 7   | [The Treachery of Whales][7] | ~ 40 min   | ⭐⭐    | Was pretty fast in finding solution for part 1 (5 min). Also for part 2 (10 min), but had issues as the best position isn't always exactly the average of the positions.                   |
-| 8   |                              |            |       |                                                                                                                                                                                            |
+| 8   | [Seven Segment Search][8]    | ~ 120 min  | ⭐⭐    | Can't make any statement about the puzzles level of difficulty, as I had only 3 hours of sleep last night.                                                                                 |
 | 9   |                              |            |       |                                                                                                                                                                                            |
 | 10  |                              |            |       |                                                                                                                                                                                            |
 | 11  |                              |            |       |                                                                                                                                                                                            |
