@@ -41,7 +41,7 @@ internal class Day08Test {
     private fun readSignalInput(name: String): List<SignalInput> {
         return readInput(name).map { it.split(" | ") }
             .map { it[0] to it[1] }
-            .map { it.first.split(" ") to it.second.split(" ") }
+            .map { it.first.split(" ").map { p -> Pattern(p) } to it.second.split(" ").map { p -> Pattern(p) } }
             .map { SignalInput(it.first, it.second) }
     }
 }

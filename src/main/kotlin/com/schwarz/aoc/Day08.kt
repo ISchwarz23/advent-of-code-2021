@@ -23,38 +23,24 @@ object Day08 {
 
 }
 
-class DigitIdentifier(private val trainingData: List<String>) {
+class DigitIdentifier(trainingData: List<Pattern>) {
 
-    private val digitResolution = mutableMapOf<String, Char>()
+    private val digitResolution = mutableMapOf<Pattern, Char>()
 
     init {
-        val trainingData = this.trainingData.map { it.sorted() }
-
         // unique patterns
         val pattern1 = trainingData.findOrThrow { it.length == 2 }
         val pattern7 = trainingData.findOrThrow { it.length == 3 }
         val pattern4 = trainingData.findOrThrow { it.length == 4 }
         val pattern8 = trainingData.findOrThrow { it.length == 7 }
 
-        // identify 0, 6 and 9
-        val searchPattern0 = pattern4 - pattern1
-        val pattern0 = trainingData.findOrThrow { it.length == 6 && it.containsAll(searchPattern0.toCharArray()).not() }
-        val segmentCenter = pattern8 - pattern0
-        val pattern6 = trainingData.findOrThrow {
-            it.length == 6 && it.contains(segmentCenter) && it.containsAll(pattern1.toCharArray()).not()
-        }
-        val pattern9 = trainingData.findOrThrow {
-            it.length == 6 && it.contains(segmentCenter) && it.containsAll(pattern1.toCharArray())
-        }
-
-        // identify 2, 3 and 5
-        val segmentTopRight = pattern8 - pattern6
-        val segmentBottomLeft = pattern8 - pattern9
-        val pattern2 = trainingData.findOrThrow { it.length == 5 && it.contains(segmentBottomLeft) }
-        val pattern3 = trainingData.findOrThrow { it.length == 5 && it.containsAll(pattern1.toCharArray()) }
-        val pattern5 = trainingData.findOrThrow {
-            it.length == 5 && it.contains(segmentBottomLeft).not() && it.contains(segmentTopRight).not()
-        }
+        // other patterns
+        val pattern3 = trainingData.filter { it.length == 5 }.findOrThrow { it.contains(pattern1) }
+        val pattern6 = trainingData.filter { it.length == 6 }.findOrThrow { it.contains(pattern1).not() }
+        val pattern5 = trainingData.filter { it.length == 5 }.findOrThrow { it.contains(pattern6.inverse()).not() }
+        val pattern9 = pattern5 + pattern1
+        val pattern0 = pattern7 + pattern4.inverse() + pattern3.inverse()
+        val pattern2 = pattern4.inverse() + pattern0.inverse() + pattern6.inverse()
 
         digitResolution[pattern0] = '0'
         digitResolution[pattern1] = '1'
@@ -68,8 +54,8 @@ class DigitIdentifier(private val trainingData: List<String>) {
         digitResolution[pattern9] = '9'
     }
 
-    fun resolve(pattern: String): Char {
-        return digitResolution[pattern.sorted()] ?: throw IllegalArgumentException("Unknown pattern")
+    fun resolve(pattern: Pattern): Char {
+        return digitResolution[pattern] ?: throw IllegalArgumentException("Unknown pattern")
     }
 
     private fun <T> List<T>.findOrThrow(
@@ -79,24 +65,71 @@ class DigitIdentifier(private val trainingData: List<String>) {
         return this.find(predicate) ?: throw ex
     }
 
+}
+
+class Pattern(value: String) {
+
+    private val pattern: String = value.sorted()
+    val length: Int = pattern.length
+
+    fun contains(other: Pattern): Boolean {
+        return other.pattern.toCharArray().find { this.pattern.contains(it).not() } == null
+    }
+
+    fun contains(char: Char): Boolean {
+        return this.pattern.contains(char)
+    }
+
+    operator fun get(index: Int): Char {
+        return pattern[index]
+    }
+
+    operator fun minus(other: Pattern): Pattern {
+        var result = pattern
+        other.pattern.toCharArray().forEach { result = result.replace("$it", "") }
+        return Pattern(result)
+    }
+
+    operator fun plus(other: Pattern): Pattern {
+        var result = pattern
+        other.pattern.toCharArray().forEach { if (contains(it).not()) result += it }
+        return Pattern(result)
+    }
+
+    operator fun minus(char: Char): Pattern {
+        return Pattern(pattern.replace("$char", ""))
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return if (other is Pattern)
+            other.pattern == this.pattern
+        else
+            false
+    }
+
+    override fun hashCode(): Int {
+        return pattern.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Pattern{ value='$pattern' }"
+    }
+
     private fun String.sorted(): String {
         return this.toCharArray().sorted().joinToString("")
     }
 
-    private fun String.containsAll(chars: CharArray): Boolean {
-        return chars.find { this.contains(it).not() } == null
+    fun inverse(): Pattern {
+        var result = ""
+        for(c in 'a'..'g') {
+            if(contains(c).not()) result += c
+        }
+        return Pattern(result)
     }
-
-    private operator fun String.minus(other: String): String {
-        var result = this
-        other.toCharArray().forEach { result = result.replace("$it", "") }
-        return result
-    }
-
 }
 
 data class SignalInput(
-    val signalPatterns: List<String>,
-    val outputPatterns: List<String>
+    val signalPatterns: List<Pattern>,
+    val outputPatterns: List<Pattern>
 )
 
