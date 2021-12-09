@@ -11,8 +11,8 @@ import kotlin.test.assertEquals
 )
 internal class Day09Test {
 
-    private val testInput = readInput("Day09_test")
-    private val input = readInput("Day09")
+    private val testInput = readInputAsHeightMap("Day09_test")
+    private val input = readInputAsHeightMap("Day09")
 
     @Test
     internal fun testPart1() {
@@ -20,7 +20,7 @@ internal class Day09Test {
         val result = Day09.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(15, result)
 
         // get solution
         println("Result of Day 09 - Part 1: ${Day09.part1(input)}")
@@ -32,10 +32,15 @@ internal class Day09Test {
         val result = Day09.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(1134, result)
 
         // get solution
         println("Result of Day 09 - Part 2: ${Day09.part2(input)}")
+    }
+
+    private fun readInputAsHeightMap(name: String): HeightMap {
+        val data = readInput(name).map { it.toCharArray().map { c -> c.digitToInt() } }
+        return HeightMap(data)
     }
 
 }
