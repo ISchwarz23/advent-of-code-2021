@@ -30,7 +30,7 @@ object Day09 {
         extendedPointsToAvoid += nextPointsToVisit
 
         val ascendingPoints = mutableListOf(point)
-        for(neighbourToVisit in nextPointsToVisit) {
+        for (neighbourToVisit in nextPointsToVisit) {
             val points = getAscendingStepsStartingAt(neighbourToVisit, extendedPointsToAvoid)
             ascendingPoints += points
             extendedPointsToAvoid += points

@@ -1,10 +1,8 @@
 package aoc2021
 
-import utils.readInput
-import aoc2021.Day09
-import aoc2021.HeightMap
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
+import utils.readInput
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

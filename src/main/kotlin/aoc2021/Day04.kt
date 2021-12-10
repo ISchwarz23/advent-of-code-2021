@@ -2,7 +2,6 @@ package aoc2021
 
 import utils.ANSI_RED_BACKGROUND
 import utils.ANSI_RESET
-import java.lang.IllegalArgumentException
 
 object Day04 {
 
@@ -17,11 +16,11 @@ object Day04 {
         var lastCall: Int
         do {
             lastCall = calls[++index]
-            boards.forEach{ it.mark(lastCall) }
+            boards.forEach { it.mark(lastCall) }
             finishedBoard = boards.find { it.isFinished() }
-        } while(finishedBoard == null)
+        } while (finishedBoard == null)
 
-        if(debug) println(finishedBoard)
+        if (debug) println(finishedBoard)
         return finishedBoard.getUnmarkedFieldValues().sum() * lastCall
     }
 
@@ -35,17 +34,17 @@ object Day04 {
         var lastCall: Int
         do {
             lastCall = calls[++index]
-            boards.forEach{ it.mark(lastCall) }
+            boards.forEach { it.mark(lastCall) }
             boards = boards.filter { !it.isFinished() }
-        } while(boards.size > 1)
+        } while (boards.size > 1)
 
         val lastFinishedBoard = boards[0]
-        while(lastFinishedBoard.isFinished().not()) {
+        while (lastFinishedBoard.isFinished().not()) {
             lastCall = calls[++index]
             lastFinishedBoard.mark(lastCall)
         }
 
-        if(debug) println(lastFinishedBoard)
+        if (debug) println(lastFinishedBoard)
         return lastFinishedBoard.getUnmarkedFieldValues().sum() * lastCall
     }
 
@@ -70,9 +69,9 @@ object Day04 {
         private var boardSize = -1
 
         fun addRow(rowValues: List<Int>) {
-            if(boardSize < 1) {
+            if (boardSize < 1) {
                 boardSize = rowValues.size
-            } else if(boardSize != rowValues.size) {
+            } else if (boardSize != rowValues.size) {
                 throw IllegalArgumentException("Row has wrong length")
             }
             rowValues.forEach {
@@ -96,9 +95,9 @@ object Day04 {
         }
 
         fun isFinished(): Boolean {
-            for(i in 0 until boardSize) {
-                if(isRowComplete(i)) return true
-                if(isColumnComplete(i)) return true
+            for (i in 0 until boardSize) {
+                if (isRowComplete(i)) return true
+                if (isColumnComplete(i)) return true
             }
             return false
         }
@@ -110,12 +109,12 @@ object Day04 {
         override fun toString(): String {
             var s = ""
             fields.forEachIndexed { index, field ->
-                if(field.value < 10) s += " "
-                if(field.isMarked) s += ANSI_RED_BACKGROUND
+                if (field.value < 10) s += " "
+                if (field.isMarked) s += ANSI_RED_BACKGROUND
                 s += field.value
-                if(field.isMarked) s += ANSI_RESET
+                if (field.isMarked) s += ANSI_RESET
                 s += " "
-                if((index + 1) % boardSize == 0) s += "\n"
+                if ((index + 1) % boardSize == 0) s += "\n"
             }
             return s
         }
@@ -127,7 +126,7 @@ object Day04 {
         private fun isColumnComplete(columnIndex: Int): Boolean {
             var index = columnIndex
             while (index < fields.size) {
-                if(fields[index].isMarked.not()) return false
+                if (fields[index].isMarked.not()) return false
                 index += boardSize
             }
             return true

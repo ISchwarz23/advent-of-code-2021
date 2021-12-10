@@ -3,7 +3,6 @@ package aoc2021
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
 import utils.readInputAsInts
-import aoc2021.Day01
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

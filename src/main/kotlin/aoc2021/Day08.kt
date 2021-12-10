@@ -121,8 +121,8 @@ class Pattern(value: String) {
 
     fun inverse(): Pattern {
         var result = ""
-        for(c in 'a'..'g') {
-            if(contains(c).not()) result += c
+        for (c in 'a'..'g') {
+            if (contains(c).not()) result += c
         }
         return Pattern(result)
     }

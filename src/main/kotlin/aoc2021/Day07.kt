@@ -16,9 +16,9 @@ object Day07 {
 
         // check around average
         var minFuelCosts = Integer.MAX_VALUE
-        for(avg in average-1..average+1) {
+        for (avg in average - 1..average + 1) {
             val fuelCosts = input.sumOf { (it - avg).absoluteValue.calcPartialSum() }
-            if(fuelCosts < minFuelCosts) minFuelCosts = fuelCosts
+            if (fuelCosts < minFuelCosts) minFuelCosts = fuelCosts
         }
         return minFuelCosts
     }

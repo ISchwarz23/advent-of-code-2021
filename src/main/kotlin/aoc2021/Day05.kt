@@ -7,14 +7,14 @@ object Day05 {
     fun part1(input: List<Line>, debug: Boolean = false): Int {
         val diagram = Diagram()
         input.filter { it.isNotDiagonal }.forEach { diagram.add(it) }
-        if(debug) println(diagram)
+        if (debug) println(diagram)
         return diagram.numberOfOverlappingFields
     }
 
     fun part2(input: List<Line>, debug: Boolean = false): Int {
         val diagram = Diagram()
         input.forEach { diagram.add(it) }
-        if(debug) println(diagram)
+        if (debug) println(diagram)
         return diagram.numberOfOverlappingFields
     }
 }

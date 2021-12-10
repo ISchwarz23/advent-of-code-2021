@@ -6,8 +6,8 @@ object Day06 {
         var fishAges: MutableList<Int> = input.toMutableList()
         repeat(80) {
             val numberOfFishToAdd = fishAges.count { it == 0 }
-            fishAges = fishAges.map { if(it > 0) it - 1 else 6 }.toMutableList()
-            repeat(numberOfFishToAdd) { fishAges.add( 8 ) }
+            fishAges = fishAges.map { if (it > 0) it - 1 else 6 }.toMutableList()
+            repeat(numberOfFishToAdd) { fishAges.add(8) }
         }
         return fishAges.size
     }
@@ -17,8 +17,8 @@ object Day06 {
         input.forEach { fishAges[it]++ }
         repeat(256) {
             val numberOfFishToAdd = fishAges[0]
-            for(i in 0 until 8) {
-                fishAges[i] = fishAges[i+1]
+            for (i in 0 until 8) {
+                fishAges[i] = fishAges[i + 1]
             }
             fishAges[6] += numberOfFishToAdd
             fishAges[8] = numberOfFishToAdd
