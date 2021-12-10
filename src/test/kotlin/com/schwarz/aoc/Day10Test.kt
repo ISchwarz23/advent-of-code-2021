@@ -20,7 +20,7 @@ internal class Day10Test {
         val result = Day10.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(26397, result)
 
         // get solution
         println("Result of Day 10 - Part 1: ${Day10.part1(input)}")
@@ -32,7 +32,7 @@ internal class Day10Test {
         val result = Day10.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(288957, result)
 
         // get solution
         println("Result of Day 10 - Part 2: ${Day10.part2(input)}")
