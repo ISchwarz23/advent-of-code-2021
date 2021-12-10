@@ -8,35 +8,34 @@ object Day09 {
 
     fun part2(heightMap: HeightMap): Int {
         return heightMap.getLowPoints()
-            .map { getUpwardSteps(it).size }
+            .map { getAscendingStepsStartingAt(it).size }
             .sortedDescending()
             .take(3)
             .fold(1) { first, second -> first * second }
     }
 
-    private fun getUpwardSteps(
+    private fun getAscendingStepsStartingAt(
         point: HeightMapPoint,
         pointsToAvoid: List<HeightMapPoint> = emptyList()
     ): List<HeightMapPoint> {
 
         if (point.value >= 9) return emptyList()
 
-        val pointsToVisit = point.neighbours.asList()
+        val nextPointsToVisit = point.neighbours.asList()
             .filterNot { pointsToAvoid.contains(it) }
             .filter { it.value >= point.value }
 
-        val extendedPointsToAvoid = mutableListOf<HeightMapPoint>()
+        val extendedPointsToAvoid = mutableListOf(point)
         extendedPointsToAvoid += pointsToAvoid
-        extendedPointsToAvoid += point
+        extendedPointsToAvoid += nextPointsToVisit
 
-        val upwardPoints = mutableListOf<HeightMapPoint>()
-        upwardPoints += point
-        for(neighbourToVisit in pointsToVisit) {
-            val points = getUpwardSteps(neighbourToVisit, extendedPointsToAvoid)
-            upwardPoints += points
+        val ascendingPoints = mutableListOf(point)
+        for(neighbourToVisit in nextPointsToVisit) {
+            val points = getAscendingStepsStartingAt(neighbourToVisit, extendedPointsToAvoid)
+            ascendingPoints += points
             extendedPointsToAvoid += points
         }
-        return upwardPoints.distinct()
+        return ascendingPoints
     }
 
 }
