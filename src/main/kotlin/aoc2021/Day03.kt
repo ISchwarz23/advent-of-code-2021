@@ -1,4 +1,4 @@
-package com.schwarz.aoc
+package aoc2021
 
 import kotlin.math.pow
 

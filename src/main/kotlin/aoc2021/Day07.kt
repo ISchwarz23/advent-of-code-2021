@@ -1,6 +1,6 @@
-package com.schwarz.aoc
+package aoc2021
 
-import com.schwarz.aoc.utils.calcPartialSum
+import utils.calcPartialSum
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 

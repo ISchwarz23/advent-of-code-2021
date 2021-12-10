@@ -1,6 +1,8 @@
-package com.schwarz.aoc
+package aoc2021
 
-import com.schwarz.aoc.utils.readInput
+import utils.readInput
+import aoc2021.Day09
+import aoc2021.HeightMap
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test

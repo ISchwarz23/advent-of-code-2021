@@ -1,4 +1,4 @@
-package com.schwarz.aoc.utils
+package utils
 
 import java.io.File
 import java.math.BigInteger

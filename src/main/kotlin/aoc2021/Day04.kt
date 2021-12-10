@@ -1,7 +1,7 @@
-package com.schwarz.aoc
+package aoc2021
 
-import com.schwarz.aoc.utils.ANSI_RED_BACKGROUND
-import com.schwarz.aoc.utils.ANSI_RESET
+import utils.ANSI_RED_BACKGROUND
+import utils.ANSI_RESET
 import java.lang.IllegalArgumentException
 
 object Day04 {

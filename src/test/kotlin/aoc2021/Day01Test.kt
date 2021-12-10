@@ -1,8 +1,9 @@
-package com.schwarz.aoc
+package aoc2021
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
-import com.schwarz.aoc.utils.readInputAsInts
+import utils.readInputAsInts
+import aoc2021.Day01
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

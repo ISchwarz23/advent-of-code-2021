@@ -1,4 +1,4 @@
-package com.schwarz.aoc.utils
+package utils
 
 
 const val ANSI_RESET = "\u001B[0m"

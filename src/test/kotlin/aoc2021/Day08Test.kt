@@ -1,6 +1,9 @@
-package com.schwarz.aoc
+package aoc2021
 
-import com.schwarz.aoc.utils.readInput
+import utils.readInput
+import aoc2021.Day08
+import aoc2021.Pattern
+import aoc2021.SignalInput
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
 import kotlin.test.Test

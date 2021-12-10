@@ -1,4 +1,4 @@
-package com.schwarz.aoc
+package aoc2021
 
 object Day10 {
 
