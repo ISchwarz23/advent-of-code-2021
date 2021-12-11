@@ -72,7 +72,6 @@ class HeightMap(private val data: List<List<Int>>) {
         if (y + 1 < height) neighbours.south = HeightMapPoint(x, y + 1, this)
         return neighbours
     }
-
 }
 
 data class HeightMapPoint(val x: Int, val y: Int, private val heightMap: HeightMap) {

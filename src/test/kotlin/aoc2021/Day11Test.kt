@@ -11,8 +11,8 @@ import kotlin.test.assertEquals
 )
 internal class Day11Test {
 
-    private val testInput = readInput("Day11_test")
-    private val input = readInput("Day11")
+    private val testInput = readInputAsOctopusFiled("Day11_test")
+    private val input = readInputAsOctopusFiled("Day11")
 
     @Test
     internal fun testPart1() {
@@ -20,7 +20,7 @@ internal class Day11Test {
         val result = Day11.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(1656, result)
 
         // get solution
         println("Result of Day 11 - Part 1: ${Day11.part1(input)}")
@@ -32,10 +32,15 @@ internal class Day11Test {
         val result = Day11.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(195, result)
 
         // get solution
         println("Result of Day 11 - Part 2: ${Day11.part2(input)}")
+    }
+
+    private fun readInputAsOctopusFiled(name: String): OctopusField {
+        val data = readInput(name).map { it.toCharArray().map { c -> c.digitToInt() } }
+        return OctopusField(data)
     }
 
 }
