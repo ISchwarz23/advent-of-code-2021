@@ -38,13 +38,4 @@ internal class Day13Test {
         println("Result of Day 13 - Part 2: ${Day13.part2(input)}")
     }
 
-    private fun readInputAsCaveConnections(name: String): Map<String, List<String>> {
-        return readInput(name).map { it.split("-") }
-            .map { listOf(CaveConnection(it[0], it[1]), CaveConnection(it[1], it[0])) }
-            .flatten()
-            .groupBy(CaveConnection::from, CaveConnection::to)
-    }
-
-    data class CaveConnection(val from: String, val to: String )
-
 }
