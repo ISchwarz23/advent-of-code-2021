@@ -1,6 +1,7 @@
 package aoc2021
 
 object Day12 {
+
     fun part1(caveConnections: Map<String, List<String>>): Int {
         return findRoutes(caveConnections) { route, caveToVisit ->
             caveToVisit.isBigCave || route.containsNot(caveToVisit)
