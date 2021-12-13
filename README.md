@@ -1,5 +1,5 @@
-![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=12&color=blue&style=flat-square)
-![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=24&color=yellow&style=flat-square)
+![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=13&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=26&color=yellow&style=flat-square)
   
 # Advent of Code (2021)
 In this repository, I'm about to provide solutions for the Advent of Code[^aoc] puzzles using [Kotlin][kotlin] language.
@@ -30,7 +30,7 @@ I tried to log my results and thoughts for each puzzle after solving it.
 | 10   | [Syntax Scoring][10]         | ~ 30 min   | ⭐⭐    | Really liked this puzzle. As soon as you see, that the issue is related to stacks, it is a straight forward implementation.                                                                                          |
 | 11   | [Dumbo Octopus][11]          | ~ 100 min  | ⭐⭐    | Tried to implement a highly optimized solution from the beginning, but failed. Started all over again and implemented it just as described in the puzzle. Solution was fast enough.                                  |
 | 12   | [Passage Pathing][12]        | ~ 40 min   | ⭐⭐    | As I did a route optimization side project (using A* algorithm) this was straight forward. Instead of finding only the optimal route (as in my side project), I just needed to find all routes (which is more easy). |
-| 13   |                              |            |       |                                                                                                                                                                                                                      |
+| 13   | [Transparent Origami][13]    | ~ 60 min   | ⭐⭐    | Had some issues cause I was mixing up horizontal and vertical folding all the time. So had to invest some time in bug fixing.                                                                                        |
 | 14   |                              |            |       |                                                                                                                                                                                                                      |
 | 15   |                              |            |       |                                                                                                                                                                                                                      |
 | 16   |                              |            |       |                                                                                                                                                                                                                      |
