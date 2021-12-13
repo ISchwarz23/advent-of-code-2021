@@ -11,31 +11,52 @@ import kotlin.test.assertEquals
 )
 internal class Day13Test {
 
-    private val testInput = readInput("Day13_test")
-    private val input = readInput("Day13")
+    private val testInput = readInputAsDotsAndFoldInstructions("Day13_test")
+    private val input = readInputAsDotsAndFoldInstructions("Day13")
 
     @Test
     internal fun testPart1() {
         // when
-        val result = Day13.part1(testInput)
+        val result = Day13.part1(testInput.first, testInput.second)
 
         // then
-        assertEquals(0, result)
+        assertEquals(17, result)
 
         // get solution
-        println("Result of Day 13 - Part 1: ${Day13.part1(input)}")
+        println("Result of Day 13 - Part 1: ${Day13.part1(testInput.first, testInput.second)}")
     }
 
     @Test
     internal fun testPart2() {
         // when
-        val result = Day13.part2(testInput)
+        val result = Day13.part2(testInput.first, testInput.second)
 
         // then
-        assertEquals(0, result)
+        assertEquals(16, result)
 
         // get solution
-        println("Result of Day 13 - Part 2: ${Day13.part2(input)}")
+        println("Result of Day 13 - Part 2: ${Day13.part2(input.first, input.second)}")
+    }
+
+    private fun readInputAsDotsAndFoldInstructions(name: String): Pair<List<Dot>, List<FoldInstruction>> {
+        val input = readInput(name)
+        val indexOfEmptyLine = input.indexOf("")
+        val dots = input.subList(0, indexOfEmptyLine)
+            .map { it.split(",") }
+            .map { it.map { coord -> coord.toInt() } }
+            .map { Dot(it[0], it[1]) }
+        val foldInstructions = input.subList(indexOfEmptyLine + 1, input.size)
+            .map { it.substring(11) }
+            .map { it.split("=") }
+            .map {
+                val foldLocation = it[1].toInt()
+                when (it[0]) {
+                    "x" -> FoldInstruction(FoldOrientation.HORIZONTAL, foldLocation)
+                    "y" -> FoldInstruction(FoldOrientation.VERTICAL, foldLocation)
+                    else -> throw IllegalArgumentException("Unknown fold instruction")
+                }
+            }
+        return Pair(dots, foldInstructions)
     }
 
 }
