@@ -11,31 +11,43 @@ import kotlin.test.assertEquals
 )
 internal class Day14Test {
 
-    private val testInput = readInput("Day14_test")
-    private val input = readInput("Day14")
+    private val testInput = readInputAsPolymerTemplateAndInsertionRules("Day14_test")
+    private val input = readInputAsPolymerTemplateAndInsertionRules("Day14")
 
     @Test
     internal fun testPart1() {
         // when
-        val result = Day14.part1(testInput)
+        val result = Day14.part1(testInput.first, testInput.second)
 
         // then
-        assertEquals(0, result)
+        assertEquals(1588, result)
 
         // get solution
-        println("Result of Day 14 - Part 1: ${Day14.part1(input)}")
+        println("Result of Day 14 - Part 1: ${Day14.part1(input.first, input.second)}")
     }
 
     @Test
     internal fun testPart2() {
         // when
-        val result = Day14.part2(testInput)
+        val result = Day14.part2(testInput.first, testInput.second)
 
         // then
-        assertEquals(0, result)
+        assertEquals(2188189693529, result)
 
         // get solution
-        println("Result of Day 14 - Part 2: ${Day14.part2(input)}")
+        println("Result of Day 14 - Part 2: ${Day14.part2(input.first, input.second)}")
+    }
+
+    private fun readInputAsPolymerTemplateAndInsertionRules(name: String): Pair<String, List<InsertionRule>> {
+        val inputLines = readInput(name)
+
+        val template = inputLines[0]
+        val pairInsertions = mutableListOf<InsertionRule>()
+        for(i in 2 until inputLines.size) {
+            val insertionParts = inputLines[i].split(" -> ")
+            pairInsertions += InsertionRule(insertionParts[0], insertionParts[1])
+        }
+        return Pair(template, pairInsertions)
     }
 
 }
