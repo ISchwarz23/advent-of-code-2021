@@ -4,6 +4,11 @@
 # Advent of Code (2021)
 In this repository, I'm about to provide solutions for the Advent of Code[^aoc] puzzles using [Kotlin][kotlin] language.
 
+## Motivation
+I decided to do the Advent of Code in Kotlin, as it is my favorite programming language which I use way to infrequently. I'm only
+able to use them in my side projects and unfortunately not in my professional career at my current employer.  
+I use this event to get a broader knowledge about the Kotlin standard library.
+
 ## Repo Structure
 For each day/puzzle there is a separate file inside the source folder with the pattern `DayXX` (e.g. `Day01`). This file contains
 all the code that was used to solve the puzzle.  
