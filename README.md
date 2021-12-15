@@ -1,5 +1,5 @@
-![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=14&color=blue&style=flat-square)
-![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=28&color=yellow&style=flat-square)
+![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=15&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=30&color=yellow&style=flat-square)
   
 # Advent of Code (2021)
 In this repository, I'm about to provide solutions for the Advent of Code[^aoc] puzzles using [Kotlin][kotlin] language.
