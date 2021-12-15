@@ -14,23 +14,19 @@ object Day15 {
     }
 
     private fun getLeastRiskyPath(cave: Cave, start: Location = Location(0, 0)): Path? {
-        val prioritizedPaths = PriorityPathQueue { p1, p2 -> getCosts(p1) - getCosts(p2) }
+        val prioritizedPaths = PriorityPathQueue { p1, p2 -> p1.totalRisk - p2.totalRisk }
         prioritizedPaths += Path(cave, start, 0)
         var currentPath: Path? = prioritizedPaths.poll()
-        while (currentPath != null && currentPath.arrivedAtEnd.not()) {
+        while (currentPath != null && currentPath.distanceToEnd != 0) {
             prioritizedPaths += currentPath.getNextPossiblePaths()
             currentPath = prioritizedPaths.poll()
         }
         return currentPath
     }
 
-    private fun getCosts(path: Path): Int {
-        return path.totalRisk
-    }
-
 }
 
-class PriorityPathQueue(comparator: (Path, Path) -> Int) {
+private class PriorityPathQueue(comparator: (Path, Path) -> Int) {
 
     private val paths = PriorityQueue(comparator)
     private val locationToBestPath = mutableMapOf<Location, Path>()
@@ -86,24 +82,19 @@ class Cave(private val riskLevels: List<List<Int>>) {
 
 data class Location(val x: Int, val y: Int)
 
-class Path(private val cave: Cave, val currentLocation: Location, val totalRisk: Int) {
+private class Path(private val cave: Cave, val currentLocation: Location, val totalRisk: Int) {
 
     val distanceToEnd = (cave.width - currentLocation.x - 1) + (cave.height - currentLocation.y - 1)
-    val arrivedAtEnd = distanceToEnd == 0
 
     fun getNextPossiblePaths(): List<Path> {
         val nextSteps = mutableListOf<Location>()
+        val x = currentLocation.x
+        val y = currentLocation.y
 
-        var x = currentLocation.x + 1
-        var y = currentLocation.y
-        if (x < cave.width) nextSteps += Location(x, y)
-        x = currentLocation.x - 1
-        if (x >= 0) nextSteps += Location(x, y)
-        x = currentLocation.x
-        y = currentLocation.y + 1
-        if (y < cave.height) nextSteps += Location(x, y)
-        y = currentLocation.y - 1
-        if (y >= 0) nextSteps += Location(x, y)
+        if (x + 1 < cave.width) nextSteps += Location(x + 1, y)
+        if (y + 1 < cave.height) nextSteps += Location(x, y + 1)
+        if (x - 1 >= 0) nextSteps += Location(x - 1, y)
+        if (y - 1 >= 0) nextSteps += Location(x, y - 1)
         return nextSteps.map { Path(cave, it, totalRisk + cave.getRiskAt(it)) }
     }
 
