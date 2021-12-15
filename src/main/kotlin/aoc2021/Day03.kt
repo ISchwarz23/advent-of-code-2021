@@ -1,6 +1,6 @@
 package aoc2021
 
-import kotlin.math.pow
+import utils.pow
 
 object Day03 {
 
@@ -64,10 +64,6 @@ object Day03 {
         }
 
         return calculateOxygenGeneratorRating() * calculateCO2ScrubberRating()
-    }
-
-    private infix fun Int.pow(exponent: Int): Int {
-        return this.toDouble().pow(exponent).toInt()
     }
 
 }

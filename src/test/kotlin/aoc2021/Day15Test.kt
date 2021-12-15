@@ -2,7 +2,7 @@ package aoc2021
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
-import utils.readInput
+import utils.readInputAs2dIntArray
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,8 +11,8 @@ import kotlin.test.assertEquals
 )
 internal class Day15Test {
 
-    private val testInput = readInput("Day15_test")
-    private val input = readInput("Day15")
+    private val testInput = readInputAsCave("Day15_test")
+    private val input = readInputAsCave("Day15")
 
     @Test
     internal fun testPart1() {
@@ -20,7 +20,7 @@ internal class Day15Test {
         val result = Day15.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(40, result)
 
         // get solution
         println("Result of Day 15 - Part 1: ${Day15.part1(input)}")
@@ -32,10 +32,14 @@ internal class Day15Test {
         val result = Day15.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(315, result)
 
         // get solution
         println("Result of Day 15 - Part 2: ${Day15.part2(input)}")
+    }
+
+    private fun readInputAsCave(name: String): Cave {
+        return Cave(readInputAs2dIntArray(name))
     }
 
 }

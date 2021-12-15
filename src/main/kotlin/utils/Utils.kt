@@ -3,6 +3,7 @@ package utils
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import kotlin.math.pow
 
 /**
  * Reads lines from the given input txt file.
@@ -21,6 +22,10 @@ fun readOneLineInputAsInts(name: String, delimiter: String = ","): List<Int> {
     return readInput(name)[0].split(delimiter).map { it.toInt() }
 }
 
+fun readInputAs2dIntArray(name: String, delimiter: String = ""): List<List<Int>> {
+    return readInput(name).map { it.toCharArray().map { c -> c.digitToInt() } }
+}
+
 /**
  * Converts string to com.schwarz.aoc.utils.md5 hash.
  */
@@ -31,3 +36,8 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
  */
 fun Int.calcPartialSum(): Int = (this * (this + 1)) / 2
 fun Long.calcPartialSum(): Long = (this * (this + 1)) / 2
+
+
+infix fun Int.pow(exponent: Int): Int {
+    return this.toDouble().pow(exponent).toInt()
+}
