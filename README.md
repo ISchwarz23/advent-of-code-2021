@@ -1,5 +1,5 @@
-![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=15&color=blue&style=flat-square)
-![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=30&color=yellow&style=flat-square)
+![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=16&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=32&color=yellow&style=flat-square)
   
 # Advent of Code (2021)
 In this repository, I'm about to provide solutions for the Advent of Code[^aoc] puzzles using [Kotlin][kotlin] language.
@@ -38,7 +38,7 @@ I tried to log my results and thoughts for each puzzle after solving it.
 | 13  | [Transparent Origami][13]     | ~ 60 min   | ⭐⭐    | Had some issues cause I was mixing up horizontal and vertical folding all the time. So had to invest some time in bug fixing.                                                                                        |
 | 14  | [Extended Polymerization][14] | ~ 200 min  | ⭐⭐    | Needed to reimplement everything for part 2, as part 1 was very in-performant. This took me a looot of time.                                                                                                         |
 | 15  | [Chiton][15]                  | ~ 300 min  | ⭐⭐    | Only needed to do simple adaptations on solution of part 1 to be able to process part 2 in time. But I did a dumb error when calculation neighbours of current field which cost me about 2 hours to find.            |
-| 16  |                               |            |       |                                                                                                                                                                                                                      |
+| 16  | [Packet Decoder][16]          | ~ 90 min   | ⭐⭐    | Really liked the topic this puzzle. Also the implementation went pretty smooth.I had only some minor bugs that were found during testing using the given samples.                                                    |
 | 17  |                               |            |       |                                                                                                                                                                                                                      |
 | 18  |                               |            |       |                                                                                                                                                                                                                      |
 | 19  |                               |            |       |                                                                                                                                                                                                                      |
