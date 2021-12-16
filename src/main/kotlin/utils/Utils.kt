@@ -16,6 +16,13 @@ fun readInput(name: String) = File("src/main/resources", "$name.txt").readLines(
 fun readInputAsInts(name: String) = readInput(name).map { it.toInt() }
 
 /**
+ * Reads one line as String.
+ */
+fun readOneLineInputAsString(name: String): String {
+    return readInput(name)[0]
+}
+
+/**
  * Reads one line and map to Ints.
  */
 fun readOneLineInputAsInts(name: String, delimiter: String = ","): List<Int> {
