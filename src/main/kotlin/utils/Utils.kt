@@ -3,6 +3,7 @@ package utils
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import kotlin.math.absoluteValue
 import kotlin.math.pow
 
 /**
@@ -41,8 +42,10 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
 /**
  * Math util to calculate partial sum.
  */
-fun Int.calcPartialSum(): Int = (this * (this + 1)) / 2
-fun Long.calcPartialSum(): Long = (this * (this + 1)) / 2
+fun Int.calcPartialSum(): Int {
+    val value = (this.absoluteValue * (this.absoluteValue + 1)) / 2
+    return if (this < 0) -value else value
+}
 
 
 infix fun Int.pow(exponent: Int): Int {

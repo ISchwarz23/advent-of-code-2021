@@ -1,13 +1,15 @@
 package aoc2021
 
 import utils.calcPartialSum
-import utils.fibonacci
 import kotlin.math.absoluteValue
 
 object Day17 {
 
     fun part1(targetArea: TargetArea, launcherPosition: Position = Position(0, 0)): Int {
+        return getMaximumVelocityY(targetArea, launcherPosition).calcPartialSum()
+    }
 
+    private fun getMaximumVelocityY(targetArea: TargetArea, launcherPosition: Position): Int {
         val velocityY = if (launcherPosition.y > targetArea.yEnd) {
             // if we launch above the target area, we target the
             // lower edge of the area
@@ -21,11 +23,38 @@ object Day17 {
             // can shoot as high as we want
             return Int.MAX_VALUE
         }
-        return velocityY.calcPartialSum()
+        return velocityY
     }
 
     fun part2(targetArea: TargetArea, launcherPosition: Position = Position(0, 0)): Int {
-        return 0
+
+        // REMARK:
+        // currently the calculation is only working for target areas that are located to the right of
+        // and below the launcher position
+
+        // calculate range for possible vX values
+        val deltaXStart = targetArea.xStart - launcherPosition.x
+        val velocityMaxX = targetArea.xEnd - launcherPosition.x
+        var velocityMinX = 0
+        while (velocityMinX.calcPartialSum() < deltaXStart) {
+            velocityMinX++
+        }
+
+        // calculate range for possible vY values
+        val velocityMaxY = getMaximumVelocityY(targetArea, launcherPosition)
+        val velocityMinY = targetArea.yStart - launcherPosition.y
+
+        // find velocities
+        val velocities = mutableListOf<Velocity>()
+        for (velocityX in velocityMinX..velocityMaxX) {
+            for (velocityY in velocityMinY..velocityMaxY) {
+                val velocity = Velocity(velocityX, velocityY)
+                if (hitsTarget(targetArea, launcherPosition, velocity)) {
+                    velocities += velocity
+                }
+            }
+        }
+        return velocities.size
     }
 
     private fun hitsTarget(targetArea: TargetArea, launcherPosition: Position, initialVelocity: Velocity): Boolean {
@@ -33,9 +62,8 @@ object Day17 {
         var position = launcherPosition
         var velocity = initialVelocity
 
-        while (position.y >= targetArea.yEnd || velocity.vY > 0) {
+        while (position.y >= targetArea.yStart || velocity.vY > 0) {
             if (targetArea.contains(position)) {
-                println(position)
                 return true
             }
             position += velocity
@@ -43,7 +71,6 @@ object Day17 {
         }
         return false
     }
-
 }
 
 data class Velocity(
@@ -72,6 +99,7 @@ data class TargetArea(
     val yStart: Int,
     val yEnd: Int
 ) {
+
     fun contains(position: Position): Boolean {
         if (position.x < xStart || position.x > xEnd) return false
         if (position.y < yStart || position.y > yEnd) return false
