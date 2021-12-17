@@ -3,6 +3,7 @@ package aoc2021
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
 import utils.readInput
+import utils.readOneLineInputAsString
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,8 +12,8 @@ import kotlin.test.assertEquals
 )
 internal class Day17Test {
 
-    private val testInput = readInput("Day17_test")
-    private val input = readInput("Day17")
+    private val testInput = readInputAsTargetArea("Day17_test")
+    private val input = readInputAsTargetArea("Day17")
 
     @Test
     internal fun testPart1() {
@@ -20,7 +21,7 @@ internal class Day17Test {
         val result = Day17.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(45, result)
 
         // get solution
         println("Result of Day 17 - Part 1: ${Day17.part1(input)}")
@@ -32,10 +33,19 @@ internal class Day17Test {
         val result = Day17.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(112, result)
 
         // get solution
         println("Result of Day 17 - Part 2: ${Day17.part2(input)}")
+    }
+
+    private fun readInputAsTargetArea(name: String): TargetArea {
+        val input = readOneLineInputAsString(name)
+        val ranges = input.substring(13).split(", ")
+            .map { it.substring(2) }
+            .flatMap { it.split("..") }
+            .map { it.toInt() }
+        return TargetArea(ranges[0], ranges[1], ranges[2], ranges[3])
     }
 
 }
