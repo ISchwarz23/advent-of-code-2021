@@ -1,5 +1,7 @@
 package aoc2021
 
+import utils.split
+
 object Day16 {
 
     fun part1(hexInput: String): Int {
@@ -84,10 +86,6 @@ object Day16 {
     }
 }
 
-
-private fun String.split(index: Int): Pair<String, String> {
-    return Pair(substring(0, index), substring(index))
-}
 
 private data class ParseResult<T>(val result: T, val numberOfParsedBits: Int)
 

@@ -39,6 +39,14 @@ fun readInputAs2dIntArray(name: String, delimiter: String = ""): List<List<Int>>
  */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)
 
+
+/**
+ * Splits the string in two parts at the given index.
+ */
+fun String.split(index: Int, shortenLeft: Int = 0, shortenRight: Int = 0): Pair<String, String> {
+    return Pair(substring(shortenLeft, index), substring(index + 1, length - shortenRight))
+}
+
 /**
  * Math util to calculate partial sum.
  */

@@ -3,6 +3,7 @@ package aoc2021
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
 import utils.readInput
+import utils.split
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,8 +12,8 @@ import kotlin.test.assertEquals
 )
 internal class Day18Test {
 
-    private val testInput = readInput("Day18_test")
-    private val input = readInput("Day18")
+    private val testInput = readInput("Day18_test").map { it.toSnailfishNumber() }
+    private val input = readInput("Day18").map { it.toSnailfishNumber() }
 
     @Test
     internal fun testPart1() {
@@ -20,7 +21,7 @@ internal class Day18Test {
         val result = Day18.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(4140, result)
 
         // get solution
         println("Result of Day 18 - Part 1: ${Day18.part1(input)}")
@@ -32,10 +33,29 @@ internal class Day18Test {
         val result = Day18.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(3993, result)
 
         // get solution
         println("Result of Day 18 - Part 2: ${Day18.part2(input)}")
+    }
+
+
+    private fun String.toSnailfishNumber(): SnailfishNumber {
+        if (this.length == 1) return SnailfishNumber.Literal(this.toInt())
+
+        var depth = 1
+        var pointer = 1
+        val chars = this.toCharArray()
+        do {
+            when (chars[pointer]) {
+                '[' -> depth++
+                ']' -> depth--
+            }
+            pointer++
+        } while (depth != 1 || chars[pointer] != ',')
+
+        val (left, right) = this.split(pointer, 1, 1)
+        return SnailfishNumber.Pair(left.toSnailfishNumber(), right.toSnailfishNumber())
     }
 
 }
