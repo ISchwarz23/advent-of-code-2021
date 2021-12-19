@@ -43,7 +43,7 @@ object Day19 {
         var biggestDistance = Int.MIN_VALUE
         for (i in centerLocations.indices) {
             for (j in i until centerLocations.size) {
-                biggestDistance = maxOf(biggestDistance, centerLocations[i] manhattanDistanceTo  centerLocations[j])
+                biggestDistance = maxOf(biggestDistance, centerLocations[i] manhattanDistanceTo centerLocations[j])
             }
         }
         return biggestDistance
@@ -53,8 +53,7 @@ object Day19 {
 
 class ScannerResult(val id: Int, val relativeBeaconPositions: List<Position3D>, val position: Position3D? = null) {
 
-    // var fingerprint: Array<IntArray>? = null // TODO: improve
-    val variations: List<ScannerResult> by lazy {
+    private val variations: List<ScannerResult> by lazy {
         val variations = mutableListOf<ScannerResult>()
         for (up in 0 until 6) {
             for (rot in 0 until 4) {
@@ -142,7 +141,7 @@ data class Position3D(val x: Int, val y: Int, val z: Int) {
     }
 
     infix fun manhattanDistanceTo(other: Position3D): Int {
-        return abs(other.x - x) + abs(other.y - y) + abs(other.z - z);
+        return abs(other.x - x) + abs(other.y - y) + abs(other.z - z)
     }
 
 }

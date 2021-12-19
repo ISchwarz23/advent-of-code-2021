@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 @TestMethodOrder(
     MethodOrderer.Alphanumeric::class
 )
-@Ignore("Ignore as processing is pretty slow")
+// @Ignore("Ignore as processing is pretty slow")
 internal class Day19Test {
 
     private val testInput = readInputAsScannerResults("Day19_test")

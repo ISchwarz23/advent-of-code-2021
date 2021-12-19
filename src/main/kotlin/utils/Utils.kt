@@ -43,8 +43,33 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
 /**
  * Splits the string in two parts at the given index.
  */
-fun String.split(index: Int, shortenLeft: Int = 0, shortenRight: Int = 0): Pair<String, String> {
-    return Pair(substring(shortenLeft, index), substring(index + 1, length - shortenRight))
+fun String.split(
+    index: Int,
+    trimStart: Int = 0,
+    trimEnd: Int = 0,
+    splitCharBehavior: SplitCharBehavior = SplitCharBehavior.ADD_TO_SECOND
+): Pair<String, String> {
+    val firstEndIndex: Int
+    val secondStartIndex: Int
+    when(splitCharBehavior) {
+        SplitCharBehavior.ADD_TO_FIRST -> {
+            firstEndIndex = index + 1
+            secondStartIndex = index + 1
+        }
+        SplitCharBehavior.ADD_TO_SECOND -> {
+            firstEndIndex = index
+            secondStartIndex = index
+        }
+        SplitCharBehavior.OMIT -> {
+            firstEndIndex = index
+            secondStartIndex = index + 1
+        }
+    }
+    return Pair(substring(trimStart, firstEndIndex), substring(secondStartIndex, length - trimEnd))
+}
+
+enum class SplitCharBehavior {
+    ADD_TO_FIRST, ADD_TO_SECOND, OMIT
 }
 
 /**
