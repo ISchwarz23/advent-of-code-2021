@@ -2,6 +2,7 @@ package aoc2021
 
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
+import utils.SplitCharBehavior
 import utils.readInput
 import utils.split
 import kotlin.test.Test
@@ -54,7 +55,7 @@ internal class Day18Test {
             pointer++
         } while (depth != 1 || chars[pointer] != ',')
 
-        val (left, right) = this.split(pointer, 1, 1)
+        val (left, right) = this.split(pointer, 1, 1, behavior = SplitCharBehavior.OMIT_CHAR_AT_SPLIT_INDEX)
         return SnailfishNumber.Pair(left.toSnailfishNumber(), right.toSnailfishNumber())
     }
 

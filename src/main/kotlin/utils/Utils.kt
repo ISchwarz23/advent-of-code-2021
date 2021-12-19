@@ -47,20 +47,20 @@ fun String.split(
     index: Int,
     trimStart: Int = 0,
     trimEnd: Int = 0,
-    splitCharBehavior: SplitCharBehavior = SplitCharBehavior.ADD_TO_SECOND
+    behavior: SplitCharBehavior = SplitCharBehavior.ADD_CHAR_AT_SPLIT_INDEX_TO_SECOND
 ): Pair<String, String> {
     val firstEndIndex: Int
     val secondStartIndex: Int
-    when(splitCharBehavior) {
-        SplitCharBehavior.ADD_TO_FIRST -> {
+    when(behavior) {
+        SplitCharBehavior.ADD_CHAR_AT_SPLIT_INDEX_TO_FIRST -> {
             firstEndIndex = index + 1
             secondStartIndex = index + 1
         }
-        SplitCharBehavior.ADD_TO_SECOND -> {
+        SplitCharBehavior.ADD_CHAR_AT_SPLIT_INDEX_TO_SECOND -> {
             firstEndIndex = index
             secondStartIndex = index
         }
-        SplitCharBehavior.OMIT -> {
+        SplitCharBehavior.OMIT_CHAR_AT_SPLIT_INDEX -> {
             firstEndIndex = index
             secondStartIndex = index + 1
         }
@@ -69,7 +69,9 @@ fun String.split(
 }
 
 enum class SplitCharBehavior {
-    ADD_TO_FIRST, ADD_TO_SECOND, OMIT
+    ADD_CHAR_AT_SPLIT_INDEX_TO_FIRST,
+    ADD_CHAR_AT_SPLIT_INDEX_TO_SECOND,
+    OMIT_CHAR_AT_SPLIT_INDEX
 }
 
 /**
