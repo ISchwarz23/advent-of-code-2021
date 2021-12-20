@@ -6,38 +6,18 @@ import utils.repeat
 object Day20 {
 
     fun part1(filter: Filter, image: Image): Int {
-        val enhancedImage = enhanceImage(image, filter, 2)
-        return enhancedImage.numberOfLitPixels
-    }
-
-    fun part2(filter: Filter, image: Image): Int {
-        val enhanceImage = enhanceImage(image, filter, 50)
+        var enhanceImage = image
+        repeat(2) { enhanceImage = filter.applyTo(enhanceImage) }
         return enhanceImage.numberOfLitPixels
     }
 
-    private fun enhanceImage(image: Image, filter: Filter, enhancementCycles: Int): Image {
-        val filterApplier = FilterApplier(filter)
-        var resultImage = image
-        repeat(enhancementCycles) { resultImage = filterApplier.applyTo(resultImage) }
-        return resultImage
+    fun part2(filter: Filter, image: Image): Int {
+        var enhanceImage = image
+        repeat(50) { enhanceImage = filter.applyTo(enhanceImage) }
+        return enhanceImage.numberOfLitPixels
     }
 }
 
-class FilterApplier(private val filter: Filter) {
-
-    fun applyTo(image: Image): Image {
-        val imageWithPadding = image.copyAndAddPadding(filter.size * 2, image.surrounding)
-        val newPixels = mutableListOf<List<Char>>()
-        for (y in filter.size until imageWithPadding.height - filter.size) {
-            val row = mutableListOf<Char>()
-            for (x in filter.size until imageWithPadding.width - filter.size) {
-                row += filter.applyToPixel(imageWithPadding, x, y)
-            }
-            newPixels += row
-        }
-        return Image(newPixels, filter.applyToSurrounding(image.surrounding))
-    }
-}
 
 class Image(val pixels: List<List<Char>>, val surrounding: Char = '.') {
 
@@ -98,13 +78,26 @@ class Image(val pixels: List<List<Char>>, val surrounding: Char = '.') {
 
 class Filter(private val data: List<Char>, val size: Int = 1) {
 
-    fun applyToPixel(image: Image, x: Int, y: Int): Char {
+    fun applyTo(image: Image): Image {
+        val imageWithPadding = image.copyAndAddPadding(size * 2, image.surrounding)
+        val newPixels = mutableListOf<List<Char>>()
+        for (y in size until imageWithPadding.height - size) {
+            val row = mutableListOf<Char>()
+            for (x in size until imageWithPadding.width - size) {
+                row += applyToPixel(imageWithPadding, x, y)
+            }
+            newPixels += row
+        }
+        return Image(newPixels, applyToSurrounding(image.surrounding))
+    }
+
+    private fun applyToPixel(image: Image, x: Int, y: Int): Char {
         val subImage = image.getSubImage(x, y, size)
         val subImageData = subImage.pixels.flatten().joinToString("")
         return getValueForImageData(subImageData)
     }
 
-    fun applyToSurrounding(surroundingChar: Char): Char {
+    private fun applyToSurrounding(surroundingChar: Char): Char {
         val filterAreaSize = size * 2 + 1
         val surroundingData = surroundingChar.repeat(filterAreaSize * filterAreaSize)
         return getValueForImageData(surroundingData)
