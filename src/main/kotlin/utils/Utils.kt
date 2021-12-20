@@ -86,3 +86,9 @@ fun Int.calcPartialSum(): Int {
 infix fun Int.pow(exponent: Int): Int {
     return this.toDouble().pow(exponent).toInt()
 }
+
+fun Char.repeat(i: Int): String {
+    var result = ""
+    repeat(i) { result += this }
+    return result
+}

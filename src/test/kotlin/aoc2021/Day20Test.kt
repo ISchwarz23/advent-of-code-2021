@@ -11,31 +11,42 @@ import kotlin.test.assertEquals
 )
 internal class Day20Test {
 
-    private val testInput = readInput("Day20_test")
-    private val input = readInput("Day20")
+    private val testInput = readInputAsFilterAndImage("Day20_test")
+    private val input = readInputAsFilterAndImage("Day20")
 
     @Test
     internal fun testPart1() {
         // when
-        val result = Day20.part1(testInput)
+        val result = Day20.part1(testInput.first, testInput.second)
 
         // then
-        assertEquals(0, result)
+        assertEquals(35, result)
 
         // get solution
-        println("Result of Day 20 - Part 1: ${Day20.part1(input)}")
+        println("Result of Day 20 - Part 1: ${Day20.part1(input.first, input.second)}")
     }
 
     @Test
     internal fun testPart2() {
         // when
-        val result = Day20.part2(testInput)
+        val result = Day20.part2(testInput.first, testInput.second)
 
         // then
-        assertEquals(0, result)
+        assertEquals(3351, result)
 
         // get solution
-        println("Result of Day 20 - Part 2: ${Day20.part2(input)}")
+        println("Result of Day 20 - Part 2: ${Day20.part2(input.first, input.second)}")
+    }
+
+    private fun readInputAsFilterAndImage(name: String): Pair<Filter, Image> {
+        val lines = readInput(name)
+        val filterData = lines[0].toCharArray().toList()
+
+        val imageData = mutableListOf<List<Char>>()
+        for(lineIndex in 2 until lines.size) {
+            imageData += lines[lineIndex].toCharArray().toList()
+        }
+        return Pair(Filter(filterData), Image(imageData))
     }
 
 }
