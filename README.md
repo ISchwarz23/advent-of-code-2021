@@ -1,5 +1,5 @@
-![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=18&color=blue&style=flat-square)
-![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=36&color=yellow&style=flat-square)
+![](https://img.shields.io/static/v1?label=%F0%9F%93%85%20Completed%20Days&message=20&color=blue&style=flat-square)
+![](https://img.shields.io/static/v1?label=%E2%AD%90%20Gained%20Stars&message=40&color=yellow&style=flat-square)
   
 # Advent of Code (2021)
 In this repository, I'm about to provide solutions for the Advent of Code[^aoc] puzzles using [Kotlin][kotlin] language.
@@ -41,8 +41,8 @@ I tried to log my results and thoughts for each puzzle after solving it.
 | 16  | [Packet Decoder][16]          | ⭐⭐    | Really liked the topic this puzzle. Also the implementation went pretty smooth.I had only some minor bugs that were found during testing using the given samples.                                                    |
 | 17  | [Trick Shot][17]              | ⭐⭐    | This puzzle took me a long time, as I tried to implement it iteratively. When doing the maths using pen and paper it was solved pretty fast. Especially part 1 is bad code but great maths.                          |
 | 18  | [Snailfish][18]               | ⭐⭐    | I'm not quite happy with my solution, as the code is not very easy to understand. Maybe even the way I implemented the recursion can be improved.                                                                    |
-| 19  | [Beacon Scanner][19]          | ⭐⭐    | Guess my solution is the brute force way. It takes about 20 seconds to solve one of the parts. There has to be a better/more elegant way, but I was not able to find it.                                             |
-| 20  |                               |       |                                                                                                                                                                                                                      |
+| 19  | [Beacon Scanner][19]          | ⭐⭐    | I guess my solution is the brute force way. It takes about 20 seconds to solve one of the parts. There has to be a better/more elegant way, but I was not able to find it.                                           |
+| 20  | [Trench Map][21]              | ⭐⭐    | This puzzle was more easy compared to the previous ones. Only applying the filter to the infinite surrounding pixels was a bit tricky.                                                                               |
 | 21  |                               |       |                                                                                                                                                                                                                      |
 | 22  |                               |       |                                                                                                                                                                                                                      |
 | 23  |                               |       |                                                                                                                                                                                                                      |
