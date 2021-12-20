@@ -6,15 +6,15 @@ import utils.repeat
 object Day20 {
 
     fun part1(filter: Filter, image: Image): Int {
-        var enhanceImage = image
-        repeat(2) { enhanceImage = filter.applyTo(enhanceImage) }
-        return enhanceImage.numberOfLitPixels
+        var enhancedImage = image
+        repeat(2) { enhancedImage = filter.applyTo(enhancedImage) }
+        return enhancedImage.numberOfLitPixels
     }
 
     fun part2(filter: Filter, image: Image): Int {
-        var enhanceImage = image
-        repeat(50) { enhanceImage = filter.applyTo(enhanceImage) }
-        return enhanceImage.numberOfLitPixels
+        var enhancedImage = image
+        repeat(50) { enhancedImage = filter.applyTo(enhancedImage) }
+        return enhancedImage.numberOfLitPixels
     }
 }
 
