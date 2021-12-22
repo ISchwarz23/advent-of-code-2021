@@ -3,6 +3,8 @@ package aoc2021
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.TestMethodOrder
 import utils.readInput
+import java.lang.RuntimeException
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -11,8 +13,23 @@ import kotlin.test.assertEquals
 )
 internal class Day22Test {
 
-    private val testInput = readInput("Day22_test")
-    private val input = readInput("Day22")
+    private val testInput = readInputAsRebootSteps("Day22_test")
+    private val input = readInputAsRebootSteps("Day22")
+
+    internal fun customTest() {
+        // given
+        val rebootSteps = listOf(
+            RebootStep(RebootAction.TURN_ON, 1..4, 1..4, 0..0),
+            RebootStep(RebootAction.TURN_ON, 5..7, 1..4, 0..0),
+            RebootStep(RebootAction.TURN_ON, 3..6, 3..5, 0..0)
+        )
+
+        // when
+        val result = Day22.part1(rebootSteps)
+
+        // then
+        assertEquals(32, result)
+    }
 
     @Test
     internal fun testPart1() {
@@ -20,22 +37,42 @@ internal class Day22Test {
         val result = Day22.part1(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(474140, result)
 
         // get solution
         println("Result of Day 22 - Part 1: ${Day22.part1(input)}")
     }
 
     @Test
+    @Ignore("too slow for real input")
     internal fun testPart2() {
         // when
         val result = Day22.part2(testInput)
 
         // then
-        assertEquals(0, result)
+        assertEquals(2758514936282235, result)
 
         // get solution
         println("Result of Day 22 - Part 2: ${Day22.part2(input)}")
     }
 
+    private fun readInputAsRebootSteps(name: String): List<RebootStep> {
+        return readInput(name).map { it.split(" ") }
+            .map {
+                val action = it[0].toRebootAction()
+                val ranges = it[1].split(",")
+                    .map { it.substring(2) }
+                    .map { it.split("..") }
+                    .map { IntRange(it[0].toInt(), it[1].toInt()) }
+                RebootStep(action, ranges[0], ranges[1], ranges[2])
+            }
+    }
+
+    private fun String.toRebootAction(): RebootAction {
+        return when (this) {
+            "on" -> RebootAction.TURN_ON
+            "off" -> RebootAction.TURN_OFF
+            else -> throw RuntimeException("Unknown reboot action: $this")
+        }
+    }
 }
