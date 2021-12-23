@@ -31,9 +31,6 @@ private class PriorityPathQueue(comparator: (Path, Path) -> Int) {
     private val paths = PriorityQueue(comparator)
     private val locationToBestPath = mutableMapOf<Location, Path>()
 
-    val size: Int
-        get() = paths.size
-
     operator fun plusAssign(path: Path) {
         val bestPath = locationToBestPath[path.currentLocation]
         if (bestPath == null || path.totalRisk < bestPath.totalRisk) {
@@ -50,7 +47,6 @@ private class PriorityPathQueue(comparator: (Path, Path) -> Int) {
     fun poll(): Path? {
         return paths.poll()
     }
-
 }
 
 class Cave(private val riskLevels: List<List<Int>>) {
