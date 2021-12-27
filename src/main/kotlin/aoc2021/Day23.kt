@@ -20,7 +20,6 @@ object Day23 {
         while (currentStep != null && !currentStep.allAmphipodsInTargetRooms) {
             prioritizedSteps += currentStep.getNextPossibleSteps()
             currentStep = prioritizedSteps.poll()
-//            println(currentStep)
         }
         return currentStep?.consumedEnergy ?: -1
     }
@@ -94,15 +93,14 @@ data class RoomSwitchingStep(
 private class PriorityStepQueue(comparator: (RoomSwitchingStep, RoomSwitchingStep) -> Int) {
 
     private val steps = PriorityQueue(comparator)
-    private val amphipodLocationsToBestEnergy = mutableMapOf<Map<Amphipod, Space>, RoomSwitchingStep>()
+    private val knownLocations = hashSetOf<Int>()
 
     operator fun plusAssign(step: RoomSwitchingStep) {
-        val bestStep = amphipodLocationsToBestEnergy[step.amphipodLocations.locations]
-        if (bestStep == null || step.consumedEnergy < bestStep.consumedEnergy) {
-            steps += step
-            amphipodLocationsToBestEnergy[step.amphipodLocations.locations] = step
-            if (bestStep != null) steps.remove(bestStep)
+        if (knownLocations.contains(step.amphipodLocations.hashCode())) {
+            return
         }
+        steps += step
+        knownLocations += step.amphipodLocations.hashCode()
     }
 
     operator fun plusAssign(steps: List<RoomSwitchingStep>) {

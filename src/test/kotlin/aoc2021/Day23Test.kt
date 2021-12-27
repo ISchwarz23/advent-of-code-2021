@@ -20,19 +20,16 @@ internal class Day23Test {
     @Test
     internal fun testPart1() {
         // when
-        println(RoomSwitchingStep(part1TestInput.first, AmphipodLocations(part1TestInput.second), 0))
         val result = Day23.part1(part1TestInput.first, part1TestInput.second)
 
         // then
         assertEquals(12521, result)
 
         // get solution
-        println(RoomSwitchingStep(part1Input.first, AmphipodLocations(part1Input.second), 0))
         println("Result of Day 23 - Part 1: ${Day23.part1(part1Input.first, part1Input.second)}")
     }
 
     @Test
-    @Ignore("Not fast enough")
     internal fun testPart2() {
         // when
         val result = Day23.part2(part2TestInput.first, part2TestInput.second)
