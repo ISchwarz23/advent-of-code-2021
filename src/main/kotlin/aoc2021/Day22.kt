@@ -1,6 +1,7 @@
 package aoc2021
 
-import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 object Day22 {
 
@@ -12,10 +13,7 @@ object Day22 {
 
     fun part2(rebootSteps: List<RebootStep>): Long {
         val reactor = Reactor()
-        rebootSteps.forEachIndexed { index, step ->
-            println("Executing Reboot Step ${index + 1}/${rebootSteps.size}")
-            reactor.apply(step)
-        }
+        rebootSteps.forEach { reactor.apply(it) }
         return reactor.numberOfActivatedCubes
     }
 
@@ -27,24 +25,26 @@ class Reactor(
     zSize: IntRange = Int.MIN_VALUE..Int.MAX_VALUE
 ) {
     val numberOfActivatedCubes: Long
-        get() = activatedCubesClusters.sumOf {
-            it.size
-        }
+        get() = activatedCubesClusters.sumOf { it.size }
 
     private val range3D = IntRange3D(xSize, ySize, zSize)
     private var activatedCubesClusters = listOf<IntRange3D>()
 
     fun apply(rebootStep: RebootStep) {
-        if (rebootStep.action == RebootAction.TURN_ON && range3D doesNotContain rebootStep.range3D) return
+        if (range3D doesNotContain rebootStep.range3D) return
+        if (rebootStep.action == RebootAction.TURN_ON && activatedCubesClusters.any { it contains rebootStep.range3D }) return
 
         val newCubeClusters = activatedCubesClusters.flatMap { it - rebootStep.range3D }.toMutableList()
         if (rebootStep.action == RebootAction.TURN_ON) newCubeClusters += rebootStep.range3D
         activatedCubesClusters = newCubeClusters
     }
-
 }
 
-data class IntRange3D(val xRange: IntRange, val yRange: IntRange, val zRange: IntRange) {
+data class IntRange3D(
+    val xRange: IntRange,
+    val yRange: IntRange,
+    val zRange: IntRange
+) {
 
     val size: Long by lazy { xRange.size * yRange.size * zRange.size }
 
@@ -65,7 +65,57 @@ data class IntRange3D(val xRange: IntRange, val yRange: IntRange, val zRange: In
         }
 
         // only keep the clusters which are not contained by the other cluster
-        return resultingClusters.filterNot { other contains it }
+        val subClusters = resultingClusters.filterNot { other contains it }
+        return merge(subClusters)
+    }
+
+    private fun merge(clusters: List<IntRange3D>): List<IntRange3D> {
+        var mergedClusters = clusters
+        var previousMergedClusters: List<IntRange3D>
+        do {
+            previousMergedClusters = mergedClusters
+
+            val newClusters = mutableListOf<IntRange3D>()
+            for (cluster in clusters) {
+                var clusterToRemove: IntRange3D? = null
+                var clusterToAdd: IntRange3D = cluster
+                for (newCluster in newClusters) {
+                    val addResult = cluster + newCluster
+                    if (addResult.size == 1) {
+                        clusterToAdd = addResult[0]
+                        clusterToRemove = newCluster
+                        break
+                    }
+                }
+                clusterToRemove?.let { newClusters -= clusterToRemove }
+                newClusters += clusterToAdd
+            }
+            mergedClusters = newClusters
+        } while (previousMergedClusters.size != mergedClusters.size)
+        return mergedClusters
+    }
+
+    operator fun plus(other: IntRange3D): List<IntRange3D> {
+        if (this.xRange continues other.xRange || other.xRange continues this.xRange) {
+            if (this.yRange == other.yRange && this.zRange == other.zRange) {
+                val xMin = min(this.xRange.first, other.xRange.first)
+                val xMax = max(this.xRange.last, other.xRange.last)
+                return listOf(IntRange3D(xMin..xMax, this.yRange, this.zRange))
+            }
+        } else if (this.yRange continues other.yRange || other.yRange continues this.yRange) {
+            if (this.xRange == other.xRange && this.zRange == other.zRange) {
+                val yMin = min(this.yRange.first, other.yRange.first)
+                val yMax = max(this.yRange.last, other.yRange.last)
+                return listOf(IntRange3D(this.xRange, yMin..yMax, this.zRange))
+            }
+        } else if (this.zRange continues other.zRange || other.zRange continues this.zRange) {
+            if (this.xRange == other.xRange && this.yRange == other.yRange) {
+                val zMin = min(this.zRange.first, other.zRange.first)
+                val zMax = max(this.zRange.last, other.zRange.last)
+                return listOf(IntRange3D(this.xRange, this.yRange, zMin..zMax))
+            }
+        }
+        return listOf(this, other)
     }
 
     private fun getSubRanges(
@@ -89,18 +139,13 @@ data class IntRange3D(val xRange: IntRange, val yRange: IntRange, val zRange: In
         return coordRanges
     }
 
-    infix fun doesNotIntersect(other: IntRange3D): Boolean = !this.intersects(other)
-
-    infix fun intersects(other: IntRange3D): Boolean {
-        return this.xRange intersects other.xRange || this.yRange intersects other.yRange || this.zRange intersects other.zRange
-    }
-
     infix fun doesNotContain(other: IntRange3D): Boolean = !this.contains(other)
 
     infix fun contains(other: IntRange3D): Boolean {
-        return this.xRange contains other.xRange && this.yRange contains other.yRange && this.zRange contains other.zRange
+        return this.xRange contains other.xRange &&
+                this.yRange contains other.yRange &&
+                this.zRange contains other.zRange
     }
-
 }
 
 data class RebootStep(val action: RebootAction, val xRange: IntRange, val yRange: IntRange, val zRange: IntRange) {
@@ -117,12 +162,12 @@ enum class RebootAction {
 ////////////////////////////////////////////////////////////////////////////////////////////
 
 private val IntRange.size: Long
-    get() = abs(this.last.toLong() - this.first.toLong()) + 1
-
-private infix fun IntRange.intersects(other: IntRange): Boolean {
-    return (this.first <= other.first) || (this.last >= other.last)
-}
+    get() = this.last.toLong() - this.first + 1
 
 private infix fun IntRange.contains(other: IntRange): Boolean {
     return (this.first <= other.first) && (this.last >= other.last)
+}
+
+private infix fun IntRange.continues(other: IntRange): Boolean {
+    return this.first == other.last + 1
 }

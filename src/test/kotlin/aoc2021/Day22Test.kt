@@ -44,7 +44,7 @@ internal class Day22Test {
     }
 
     @Test
-    @Ignore("too slow for real input")
+    // @Ignore("too slow for real input")
     internal fun testPart2() {
         // when
         val result = Day22.part2(testInput)
